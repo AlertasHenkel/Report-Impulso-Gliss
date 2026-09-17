@@ -81,10 +81,10 @@ footer h5{font-family:var(--serif);color:#fff;margin:0 0 6px;font-size:14px}foot
 <div class="kpi"><div class="k-label">Premios entregados</div><div class="k-val" id="kpi-prem">—</div><div class="k-sub">material de impulso redimido</div></div>
 </div></div>
 <div class="wrap"><div class="bullets">
-<div class="bullet"><div class="n">01</div><h4>Programación y cobertura</h4><p>Se programaron <b>81 activaciones</b> y se ejecutaron <b>75</b> — cobertura del <b class="r">93%</b>. Quedan <b class="r">6 PDV no ejecutados</b> en radar.</p></div>
-<div class="bullet"><div class="n">02</div><h4>Incremental del impulso</h4><p>El impulso GLISS (canal Directo) vendió <b class="r">+298 unidades</b> sobre la base, <b class="r">+108%</b>. El Indirecto se mide a portafolio completo del equipo.</p></div>
+<div class="bullet"><div class="n">01</div><h4>Programación y cobertura</h4><p>Se programaron <b id="b-prog">—</b> activaciones y se ejecutaron <b id="b-exec">—</b> — cobertura del <b class="r" id="b-cob">—</b>. Quedan <b class="r" id="b-ne">—</b> PDV no ejecutados en radar.</p></div>
+<div class="bullet"><div class="n">02</div><h4>Incremental del impulso</h4><p>Incremental de <b id="b-incr">—</b> unidades (<b id="b-pct">—</b>): venta real <b id="b-real">—</b> frente a la base <b id="b-base">—</b>.</p></div>
 <div class="bullet"><div class="n">03</div><h4>Producto más vendido</h4><p>El <b>combo Shampoo + Acondicionador Ultimate Repair</b> lidera con <b class="r">54 unidades</b>.</p></div>
-<div class="bullet"><div class="n">04</div><h4>Premios vs. unidades</h4><p><b class="r">320 premios</b> entregados frente a <b>670 unidades</b> vendidas al corte.</p></div>
+<div class="bullet"><div class="n">04</div><h4>Premios vs. unidades</h4><p><b class="r" id="b-prem">—</b> premios entregados frente a <b id="b-uni">—</b> unidades vendidas.</p></div>
 </div></div>
 <div class="filters"><div class="wrap"><div class="filters-inner">
 <div class="f"><label>Canal</label><select id="s-canal"></select></div>
@@ -225,6 +225,12 @@ function render(){const byDay=(S.canal==="Directo");const days=byDay?aggByDay(fD
  const cb=DATA.cobertura[S.canal==="Todos"?"Todos":S.canal];
  document.getElementById("kpi-cob").textContent=Math.round(cb.r/cb.p*100)+"%";
  document.getElementById("kpi-cob-sub").textContent=cb.r+" realizadas / "+cb.p+" programadas";
+ const bi=document.getElementById("b-incr");bi.textContent=(incr>=0?"+":"")+fmt(incr);bi.style.color=incr>=0?"var(--pos)":"var(--neg)";
+ const bp=document.getElementById("b-pct");bp.textContent=(pct>=0?"+":"")+fmt(pct)+"%";bp.style.color=incr>=0?"var(--pos)":"var(--neg)";
+ document.getElementById("b-real").textContent=fmt(real);document.getElementById("b-base").textContent=fmt(base);
+ document.getElementById("b-prem").textContent=fmt(prem);document.getElementById("b-uni").textContent=fmt(uni);
+ document.getElementById("b-prog").textContent=cb.p;document.getElementById("b-exec").textContent=cb.r;
+ document.getElementById("b-cob").textContent=Math.round(cb.r/cb.p*100)+"%";document.getElementById("b-ne").textContent=fNoEjec().length;
  chartIncr(days);renderNE();}
 chartPrem2();renderTop();renderAse();renderVoz();render();
 </script></body></html>
